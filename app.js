@@ -50,8 +50,8 @@ if (process.env.NODE_ENV === 'development') {
 
     adapter = new NgrokAdapter({
         ngrokConfig: {
-			authtoken: process.env.NGROK_AUTH_TOKEN,
-		}
+            authtoken: process.env.NGROK_AUTH_TOKEN,
+        }
     });
 } else {
 
@@ -59,10 +59,10 @@ if (process.env.NODE_ENV === 'development') {
         hostName: process.env.HOSTNAME
     })
 }
-const listener = new EventSubHttpListener({ 
-    apiClient, 
-    adapter, 
-    secret: process.env.EVENTSUB_SECRET 
+const listener = new EventSubHttpListener({
+    apiClient,
+    adapter,
+    secret: process.env.EVENTSUB_SECRET
 });
 
 console.log('Registering channels');
@@ -78,7 +78,7 @@ for (const channel of channels) {
         console.error(error);
         continue;
     }
-    
+
     console.log(`Registering channel: ${channel} (${channelId})`);
 
     listener.onStreamOnline(channelId, async (event) => {
