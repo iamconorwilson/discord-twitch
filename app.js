@@ -69,19 +69,17 @@ console.log('Registering channels');
 
 for (const channel of channels) {
 
-    let channelId
+    let channelId;
 
-    //if channel has key of "twitch_user", convert to twitch id
-    if (channel.twitch_user) {
-        channelId = await apiClient.users.getUserByName(channel.twitch_user).then((user) => { return user.id });
-    } else if (channel.twitch_id) {
-        channelId = channel.twitch_id;
-    } else {
-        console.error('No twitch_user or twitch_id found in channels.json');
+    try {
+        channelId = await apiClient.users.getUserByName(channel).then((user) => { return user.id });
+    } catch (error) {
+        console.error(`Failed to get channel ID for ${channel}`);
+        console.error(error);
         continue;
     }
-
-    console.log(`Registering channel ${channelId}`);
+    
+    console.log(`Registering channel: ${channel} (${channelId})`);
 
     listener.onStreamOnline(channelId, async (event) => {
         console.log(`Stream is online for ${event.broadcasterDisplayName}`);

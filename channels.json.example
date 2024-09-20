@@ -1,4 +1,4 @@
 [
-    { "twitch_user": "example_user" },
-    { "twitch_id": "12345678" }
+    "username1",
+    "username2"
 ]
