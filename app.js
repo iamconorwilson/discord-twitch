@@ -39,6 +39,7 @@ const apiClient = new ApiClient({ authProvider });
 
 console.log('API client created');
 
+console.log(process.env.HOSTNAME);
 
 // for each channel in channels.json listen for stream online events
 let adapter;
