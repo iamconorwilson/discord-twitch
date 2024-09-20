@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
 
     adapter = new EnvPortAdapter({
-        hostname: process.env.HOSTNAME
+        hostName: process.env.HOSTNAME
     })
 }
 const listener = new EventSubHttpListener({ 
