@@ -22,6 +22,7 @@ const channelsPath = path.resolve(process.cwd(), process.env.CHANNELS_PATH);
 //if channels.json does not exist, error
 if (!existsSync(channelsPath)) {
     console.error('No channels.json found. Please create one.');
+    console.log(channelsPath);
     process.exit(1);
 }
 
