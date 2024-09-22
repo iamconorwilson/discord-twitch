@@ -105,7 +105,7 @@ const sendWebhook = async (event) => {
     const userThumbnail = broadcaster.profilePictureUrl;
 
     const message = {
-        content: `${username} just went live!`,
+        content: `${username} just went live at ${streamUrl}!`,
         type: "rich",
         tts: false,
         embeds: [
