@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [20.17.0]
 
     steps:
       - name: Check out repository
@@ -27,6 +27,13 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run test --if-present
+      # create captain-definition file from template
+      - name: Create captain-definition file
+        run: |
+          echo '{
+            "schemaVersion": 2,
+            "templateId": "node/${{ matrix.node-version }}"
+          }' > captain-definition
 
       - uses: a7ul/tar-action@v1.1.0
         with:
