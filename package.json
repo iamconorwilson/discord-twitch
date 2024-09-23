@@ -7,11 +7,7 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "dev": "tsc && cross-env NODE_ENV=development node dist/app.js",
-<<<<<<< Updated upstream
-    "test": "echo \"Error: no test specified\" && exit 1"
-=======
     "format": "prettier --config .prettierrc ./src/**/*.ts --write"
->>>>>>> Stashed changes
   },
   "keywords": [],
   "author": "",
