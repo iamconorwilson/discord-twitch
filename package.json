@@ -19,7 +19,7 @@
     "@twurple/eventsub-base": "^7.1.0",
     "@twurple/eventsub-http": "^7.1.0",
     "@twurple/eventsub-ngrok": "^7.1.0",
-    "@twurple/eventsub-ws": "^7.1.0",
+    "@twurple/eventsub-ws": "^7.2.1",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5"
   },
