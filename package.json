@@ -14,7 +14,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@twurple/api": "^7.2.1",
+    "@twurple/api": "^7.3.0",
     "@twurple/auth": "^7.2.1",
     "@twurple/eventsub-base": "^7.2.1",
     "@twurple/eventsub-http": "^7.2.1",
