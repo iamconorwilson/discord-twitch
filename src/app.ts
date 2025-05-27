@@ -8,6 +8,7 @@ import sendWebhook from './functions/message.js';
 
 // TYPES
 import type { HelixUser } from '@twurple/api';
+import { EventSubStreamOnlineEvent } from '@twurple/eventsub-base';
 
 if (process.env.NODE_ENV === 'development') {
   dotenv.config({ path: '.env.development' });
@@ -30,6 +31,9 @@ if (!existsSync(channelsPath)) {
 let channels: string[];
 
 let sentMessages: string[] = [];
+
+const queue: object[] = [];
+let isProcessing: boolean = false;
 
 try {
   const parsedChannels = JSON.parse(readFileSync(channelsPath, 'utf-8'));
@@ -85,6 +89,25 @@ for (const channel of channels) {
   console.log(`Registering channel: ${channel} (${channelId})`);
 
   listener.onStreamOnline(channelId, async (event) => {
+    queue.push(event);
+    if (queue.length === 1 && !isProcessing) {
+      processQueue();
+    }
+  });
+}
+
+const processQueue = async () => {
+  while (queue.length > 0) {
+    isProcessing = true;
+    const event = queue.shift();
+    if (event) {
+      await processMessage(event as EventSubStreamOnlineEvent);
+    }
+  }
+  isProcessing = false;
+}
+
+const processMessage = async (event: EventSubStreamOnlineEvent) => {
     if (sentMessages.includes(event.id)) {
       console.log(`Message already sent for ${event.broadcasterDisplayName}`);
       return;
@@ -92,8 +115,7 @@ for (const channel of channels) {
     console.log(`Stream is online for ${event.broadcasterDisplayName} - ${event.id}`);
     await sendWebhook(event);
     sentMessages.push(event.id);
-  });
-}
+  }
 
 //set timeout to clear sentMessages every 24 hours
 setInterval(() => {
