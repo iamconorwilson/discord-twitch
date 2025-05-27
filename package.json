@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "dev": "tsc && cross-env NODE_ENV=development node dist/app.js",
-    "format": "prettier --config .prettierrc ./src/**/*.ts --write"
+    "lint": "npx eslint ./src/**"
   },
   "keywords": [],
   "author": "",
@@ -19,14 +19,16 @@
     "@twurple/eventsub-base": "^7.2.1",
     "@twurple/eventsub-http": "^7.2.1",
     "@twurple/eventsub-ngrok": "^7.2.1",
-    "@twurple/eventsub-ws": "^7.2.1",
     "axios": "^1.8.4",
     "dotenv": "^16.4.7"
   },
   "devDependencies": {
+    "@eslint/js": "^9.27.0",
     "@types/node": "^22.13.14",
     "cross-env": "^7.0.3",
-    "prettier": "^3.5.3",
-    "typescript": "^5.8.2"
+    "eslint": "^9.27.0",
+    "globals": "^16.2.0",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.32.1"
   }
 }
