@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 // FUNCTIONS
 import auth from './functions/auth.js';
 import sendWebhook from './functions/message.js';
+import { setCleanup, deleteAllSubscriptions } from './functions/cleanup.js';
 
 // TYPES
 import type { HelixUser } from '@twurple/api';
@@ -63,7 +64,7 @@ const { listener, apiClient } = authResult;
 
 //Delete any existing subscriptions
 console.log('Deleting any existing subscriptions');
-await apiClient.eventSub.deleteAllSubscriptions();
+await deleteAllSubscriptions(apiClient);
 
 console.log('Registering channels');
 
@@ -118,11 +119,13 @@ const processMessage = async (event: EventSubStreamOnlineEvent) => {
   }
 
 //set timeout to clear sentMessages every 24 hours
-setInterval(() => {
+const clearInterval = setInterval(() => {
   console.log('Clearing sent messages');
   sentMessages = [];
 }, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
 
-console.log('Listening for events');
+// Set cleanup for subscriptions before exiting
+setCleanup(apiClient, listener, clearInterval);
 
+console.log('Listening for events');
 listener.start();
