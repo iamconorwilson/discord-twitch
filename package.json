@@ -20,7 +20,7 @@
     "@twurple/eventsub-http": "^7.3.0",
     "@twurple/eventsub-ngrok": "^7.3.0",
     "axios": "^1.10.0",
-    "dotenv": "^16.6.0"
+    "dotenv": "^17.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
