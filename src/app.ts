@@ -22,7 +22,6 @@ console.log('-- Starting TwitchBot');
 
 console.log(`Environment: ${(process.env.NODE_ENV || 'production').toUpperCase()}`);
 
-
 const channelsPath = path.resolve(process.cwd(), process.env.CHANNELS_PATH);
 
 //if channels.json does not exist, error
@@ -99,7 +98,7 @@ for (const channel of channels) {
     }
   });
 
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' || channel === channels[0]) {
     console.log(`CLI Test Command for ${channel}:`);
     console.log(await evt.getCliTestCommand());
   }

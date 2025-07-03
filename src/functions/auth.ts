@@ -16,7 +16,7 @@ const createApiClient = () => {
   return new ApiClient({ authProvider });
 };
 
-const setupDevelopmentListener = async (apiClient: ApiClient) => {
+const setupDevListener = async (apiClient: ApiClient) => {
   await apiClient.eventSub.deleteAllSubscriptions();
   const adapter = new NgrokAdapter({
     ngrokConfig: {
@@ -31,7 +31,7 @@ const setupDevelopmentListener = async (apiClient: ApiClient) => {
   return { listener, apiClient };
 };
 
-const setupProductionListener = async (apiClient: ApiClient) => {
+const setupProdListener = async (apiClient: ApiClient) => {
   if (!process.env.HOSTNAME) throw new Error('No hostname provided');
   const app: Express = express();
   const listener = new EventSubMiddleware({
@@ -61,9 +61,9 @@ const auth = async () => {
   console.log('API client created');
 
   if (process.env.NODE_ENV === 'development') {
-    return await setupDevelopmentListener(apiClient);
+    return await setupDevListener(apiClient);
   } else {
-    return await setupProductionListener(apiClient);
+    return await setupProdListener(apiClient);
   }
 };
 
