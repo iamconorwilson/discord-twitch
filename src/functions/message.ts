@@ -76,12 +76,16 @@ const sendWebhook = async (event: EventSubStreamOnlineEvent) => {
     username: 'TwitchBot'
   };
 
-  console.log(JSON.stringify(message));
+  // console.log(JSON.stringify(message));
 
   try {
     const response = await axios.post(webhookUrl, message);
-    //log response code and message
-    console.log(response.status, response.statusText);
+    if (response.status !== 204) {
+      console.log(response.status, response.statusText);
+    } else {
+      console.log(`Webhook sent successfully for ${username}`);
+    }
+    
   } catch (error) {
     console.error(error);
   }
