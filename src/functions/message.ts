@@ -35,6 +35,12 @@ const getStreamWithRetry = async (
 
 const sendWebhook = async (event: EventSubStreamOnlineEvent) => {
   const username = event.broadcasterDisplayName;
+
+  // Skip test broadcaster
+  if (username === 'testBroadcaster') {
+    console.log(`Skipping webhook for ${username}`);
+    return;
+  }
   const { stream, broadcaster } = await getStreamWithRetry(event);
 
   if (!stream || !broadcaster) {

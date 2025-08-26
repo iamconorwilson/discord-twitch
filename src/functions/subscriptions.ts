@@ -24,6 +24,13 @@ const getAllSubscriptions = async (apiClient: ApiClient): Promise<HelixEventSubS
   return allSubscriptions;
 }
 
+const logSubscriptions = async (apiClient: ApiClient): Promise<void> => {
+  const subscriptions = await getAllSubscriptions(apiClient);
+  console.log(`Found ${subscriptions.length} subscriptions:`);
+  subscriptions.forEach((sub) => {
+    console.log(`ID: ${sub.id} - Status: ${sub.status}`);
+  });
+}
 
 const deleteAllSubscriptions = async (apiClient: ApiClient): Promise<void> => {
 
@@ -45,4 +52,4 @@ const deleteAllSubscriptions = async (apiClient: ApiClient): Promise<void> => {
   await Promise.allSettled(deletionPromises);
 }
 
-export { deleteAllSubscriptions, getAllSubscriptions }
+export { deleteAllSubscriptions, getAllSubscriptions, logSubscriptions };
